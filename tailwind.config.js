@@ -13,6 +13,12 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                body: [
+                    'MS PGothic'
+                ]
+            },
+            boxShadow: {
+                myShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'
             },
         },
     },

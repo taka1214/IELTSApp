@@ -1,22 +1,73 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Head } from "@inertiajs/vue3";
+import { Link } from "@inertiajs/vue3";
+import Dropdown from "@/Components/Dropdown.vue";
+import DropdownLink from "@/Components/DropdownLink.vue";
+import LevelDropdown from "./LevelDropdown.vue";
+import WordsDisplay from "./WordsDisplay.vue";
 </script>
 
+
 <template>
-    <Head title="Dashboard" />
+  <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-        </template>
+  <div class="flex justify-center">
+    <Link href="/">
+      <h1 class="text-gray-700 text-4xl italic font-black pt-10">
+        <p>Vocabulary</p>
+        <p>For</p>
+        <p>IELTS</p>
+      </h1>
+    </Link>
+  </div>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
-                </div>
-            </div>
+  <div class="py-12 text-gray-700 container w-11/12 flex flex-col items-center justify-center mx-auto">
+    <div class="flex justify-between w-full">
+      <div>
+        <LevelDropdown :initialLevel="selectedLevel" @changed="setLevel" />
+      </div>
+      <!-- flex added here -->
+      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex flex-col justify-between">
+        <!-- flex-col added for vertical alignment -->
+        <div class="flex">
+          <!-- flex added for horizontal alignment -->
+          <DropdownLink :href="route('profile.edit')" class="ml-1">PROFILE</DropdownLink>
+          <DropdownLink :href="route('logout')" class="ml-1" method="post" as="button">
+            LOGOUT
+          </DropdownLink>
         </div>
-    </AuthenticatedLayout>
+        <DropdownLink :href="route('word.index')" class="ml-1">
+          CHECK YOUR VOCAB
+        </DropdownLink>
+      </div>
+    </div>
+    <div :class="spacingClass" class="w-full">
+      <WordsDisplay :level="selectedLevel" />
+    </div>
+  </div>
 </template>
+
+<script>
+export default {
+  components: {
+    LevelDropdown,
+    WordsDisplay,
+  },
+  data() {
+    return {
+      selectedLevel: "Elementary 5.5~",
+    };
+  },
+  computed: {
+    // spacingClass() {
+    //   return this.selectedLevel === "Elementary" ? "py-0 mx-4" : "ml-4";
+    // },
+  },
+  methods: {
+    setLevel(level) {
+      this.selectedLevel = level;
+    },
+  },
+};
+</script>

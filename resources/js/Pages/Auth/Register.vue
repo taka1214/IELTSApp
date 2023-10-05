@@ -11,6 +11,9 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
+    building: '',
+    gender: '',
+    age: '',
     terms: false,
 });
 
@@ -101,18 +104,18 @@ const submit = () => {
                     任意の登録なのでここはスキップして登録でもOKです
                 </p>
                 <div class="py-2">
-                    <input type="radio" name="building" value="A"> A棟&nbsp; &nbsp;
-                    <input type="radio" name="building" value="B"> B棟
+                    <input type="radio" name="building" value="A" v-model="form.building"> A棟&nbsp; &nbsp;
+                    <input type="radio" name="building" value="B" v-model="form.building"> B棟
                 </div>
 
                 <div class="py-2">
-                    <input type="radio" name="gender" value="male"> 男&nbsp; &nbsp;
-                    <input type="radio" name="gender" value="female"> 女&nbsp; &nbsp;
-                    <input type="radio" name="gender" value="neither"> 未回答
+                    <input type="radio" name="gender" value="male" v-model="form.gender"> 男&nbsp; &nbsp;
+                    <input type="radio" name="gender" value="female" v-model="form.gender"> 女&nbsp; &nbsp;
+                    <input type="radio" name="gender" value="neither" v-model="form.gender"> 未回答
                 </div>
 
                 <div class="py-2">
-                    <select name="gender" class="h-6 text-sm py-0">
+                    <select name="gender" v-model="form.age" class="h-6 text-sm py-0">
                         <option value="0" disabled selected>年齢を選択</option>
                         <option value="1">~ 19歳</option>
                         <option value="2">20 ~ 29歳</option>

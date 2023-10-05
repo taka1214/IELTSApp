@@ -10,7 +10,7 @@ defineProps({
 <template>
     <button
         :type="type"
-        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md"
+        class="inline-flex items-center mx-auto py-2 border border-transparent rounded-md text-shadow-md"
     >
         <slot />
     </button>

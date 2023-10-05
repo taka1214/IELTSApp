@@ -36,16 +36,16 @@ const updatePassword = () => {
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Update Password</h2>
+            <h2 class="text-lg font-semibold text-center py-4">UPDATE<br/>PASSWORD</h2>
 
-            <p class="mt-1 text-sm text-gray-600">
+            <!-- <p class="mt-1 text-sm text-gray-600">
                 Ensure your account is using a long, random password to stay secure.
-            </p>
+            </p> -->
         </header>
 
         <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
             <div>
-                <InputLabel for="current_password" value="Current Password" />
+                <InputLabel for="current_password" value="CURRENT PASSWORD" />
 
                 <TextInput
                     id="current_password"
@@ -60,7 +60,7 @@ const updatePassword = () => {
             </div>
 
             <div>
-                <InputLabel for="password" value="New Password" />
+                <InputLabel for="password" value="NEW PASSWORD" />
 
                 <TextInput
                     id="password"
@@ -75,7 +75,7 @@ const updatePassword = () => {
             </div>
 
             <div>
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="password_confirmation" value="CONFIRM PASSWORD" />
 
                 <TextInput
                     id="password_confirmation"
@@ -88,11 +88,11 @@ const updatePassword = () => {
                 <InputError :message="form.errors.password_confirmation" class="mt-2" />
             </div>
 
-            <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+            <div class="flex flex-col items-center gap-4">
+                <PrimaryButton :disabled="form.processing">SAVE</PrimaryButton>
 
                 <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Successed.</p>
                 </Transition>
             </div>
         </form>

@@ -26,5 +26,31 @@ module.exports = {
         },
     },
 
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [
+        require('@tailwindcss/forms'),
+        function({ addUtilities }) {
+            const newUtilities = {
+                ".text-shadow": {
+                    textShadow: "0px 2px 3px darkgray"
+                },
+                ".text-shadow-md": {
+                    textShadow: "0px 3px 3px darkgray"
+                },
+                ".text-shadow-lg": {
+                    textShadow: "0px 5px 3px darkgray"
+                },
+                ".text-shadow-xl": {
+                    textShadow: "0px 7px 3px darkgray"
+                },
+                ".text-shadow-2xl": {
+                    textShadow: "0px 10px 3px darkgray"
+                },
+                ".text-shadow-none": {
+                    textShadow: "none"
+                }
+            };
+
+            addUtilities(newUtilities);
+        }
+    ]
 };

@@ -13,7 +13,7 @@ import WordsDisplay from "./WordsDisplay.vue";
   <Head title="Dashboard" />
 
   <div class="flex justify-center">
-    <Link href="/">
+    <Link href="/dashboard">
       <h1 class="text-gray-700 text-4xl italic font-black pt-10">
         <p>Vocabulary</p>
         <p>For</p>

@@ -13,7 +13,7 @@ const form = useForm({
     password_confirmation: '',
     building: '',
     gender: '',
-    age: '',
+    age: 0,
     terms: false,
 });
 
@@ -33,8 +33,10 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="NAME" />
-
+                <div class="flex justify-between">
+                    <InputLabel for="name" value="NAME" />
+                    <p class="text-xs text-gray-400">※お名前は適当でOKです！</p>
+                </div>
                 <TextInput
                     id="name"
                     type="text"
@@ -50,7 +52,10 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="EMAIL" />
+                <div class="flex justify-between">
+                    <InputLabel for="email" value="EMAIL" />
+                    <p class="text-xs text-gray-400">※実際のメールアドレスじゃなくてもいいですが、<br/>ログイン前のパスワード変更は出来なくなります</p>
+                </div>
 
                 <TextInput
                     id="email"
@@ -115,8 +120,8 @@ const submit = () => {
                 </div>
 
                 <div class="py-2">
-                    <select name="gender" v-model="form.age" class="h-6 text-sm py-0">
-                        <option value="0" disabled selected>年齢を選択</option>
+                    <select name="gender" v-model="form.age" class="h-6 text-sm py-0 border-gray-600 focus:border-gray-900 focus:ring-gray-900 rounded shadow-myShadow">
+                        <option value="0" disabled>年齢を選択</option>
                         <option value="1">~ 19歳</option>
                         <option value="2">20 ~ 29歳</option>
                         <option value="3">30 ~ 39歳</option>
@@ -128,7 +133,7 @@ const submit = () => {
             </div>
 
             <div class="flex items-center flex-col mt-4">
-                <PrimaryButton class="text-sm py-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="text-sm py-4 underline" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     REGISTER
                 </PrimaryButton>
                 <Link

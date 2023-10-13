@@ -1,23 +1,35 @@
 <template>
-  <div v-for="word in words" :key="word.id" class="shadow-myShadow rounded-sm px-1 py-2 my-3">
-    <p class="italic font-bold">{{ word.english }}<span class="text-sm text-gray-500">[{{ word.phonetic_symbol }}]</span></p>
-    <!-- <p>{{ word.phonetic_symbol }}</p> -->
-    <!-- <p>{{ word.japanese }}</p> -->
-    <!-- <p>{{ word.japanese2 }}</p> -->
-    <p class="italic text-sm">{{ word.english_sentence }}</p>
-    <!-- <p>{{ word.japanese_sentence }}</p> -->
+  <div>
+    <div v-for="word in words" :key="word.id" 
+         class="shadow-myShadow rounded-sm px-1 py-2 my-3"
+         @click="showDetail(word)"
+    >
+      <ShowWord :word="word" />
+    </div>
+
+    <!-- モーダルの追加 -->
+    <ModalShowDetail v-if="showModal" :word="selectedWord" :close="closeModal" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import ShowWord from "./ShowWord.vue"; 
+import ModalShowDetail from "./ModalShowDetail.vue";
+
 export default {
+  components: {
+    ShowWord,
+    ModalShowDetail,
+  },
   props: {
     level: String,
   },
   data() {
     return {
       words: [],
+      selectedWord: {},
+      showModal: false // モーダルの表示/非表示を制御するための変数
     };
   },
   mounted() {
@@ -42,6 +54,13 @@ export default {
           this.words = response.data;
         });
     },
+    showDetail(word) {
+      this.selectedWord = word;
+      this.showModal = true; // モーダルを表示
+    },
+    closeModal() {
+      this.showModal = false; // モーダルを非表示
+    }
   },
 };
 </script>

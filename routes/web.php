@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/word/index', [WordController::class, 'index'])->name('word.index');
+    
 });
 
 require __DIR__.'/auth.php';

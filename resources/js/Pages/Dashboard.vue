@@ -42,8 +42,9 @@ import WordsDisplay from "./WordsDisplay.vue";
         </DropdownLink>
       </div>
     </div>
-    <div :class="spacingClass" class="w-full">
+    <div class="w-full">
       <WordsDisplay :level="selectedLevel" />
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -58,11 +59,6 @@ export default {
     return {
       selectedLevel: "Elementary 5.5~",
     };
-  },
-  computed: {
-    // spacingClass() {
-    //   return this.selectedLevel === "Elementary" ? "py-0 mx-4" : "ml-4";
-    // },
   },
   methods: {
     setLevel(level) {

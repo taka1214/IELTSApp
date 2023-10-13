@@ -18,12 +18,16 @@ class WordController extends Controller
         return response()->json($words);
     }
 
-    public function getTargetWord($id)
+    public function shuffle(Request $request)
     {
-        $word = Word::find($id);
-        if (!$word) {
-            return response()->json(['error' => 'item not found.'], 404);
+        if ($request->has('level')) {
+            $words = Word::where('level', $request->level)->get();
+        } else {
+            $words = Word::all();
         }
-        return response()->json($word);
+
+        return Inertia::render('ShuffleWords', [
+            'words' => $words
+        ]);
     }
 }

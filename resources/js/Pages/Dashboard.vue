@@ -37,7 +37,7 @@ import WordsDisplay from "./WordsDisplay.vue";
             LOGOUT
           </DropdownLink>
         </div>
-        <DropdownLink :href="route('word.index')" class="ml-1">
+        <DropdownLink :href="route('word.shuffle', { level: selectedLevel })" class="ml-1">
           CHECK YOUR VOCAB
         </DropdownLink>
       </div>

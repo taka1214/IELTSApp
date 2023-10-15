@@ -15,6 +15,19 @@
       </div>
     </div>
   </div>
+  <div class="flex justify-center mt-5">
+    <!-- 覚えている場合 -->
+    <div v-if="word.memorised === 1" class="mx-2">
+      <div class="bg-red-500 w-6 h-6 rounded-full"></div> <!-- 赤マル -->
+      <div class="border-b-2 border-white w-6 h-6"></div> <!-- 白塗りのバツ -->
+    </div>
+    
+    <!-- 覚えていない場合 -->
+    <div v-else-if="word.memorised === 2" class="mx-2">
+      <div class="border-2 border-white w-6 h-6 rounded-full"></div> <!-- 白マル -->
+      <div class="border-b-2 border-red-500 w-6 h-6"></div> <!-- 赤塗りのバツ -->
+    </div>
+  </div>
 </template>
 
 <script>

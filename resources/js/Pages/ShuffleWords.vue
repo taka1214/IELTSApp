@@ -20,7 +20,9 @@
             {{ shuffledWord.phonetic_symbol }}
           </p>
         </div>
-        <p class="pt-10 pb-5 underline italic">{{ shuffledWord.english_sentence }}</p>
+        <p class="pt-10 pb-5 underline italic">
+          {{ shuffledWord.english_sentence }}
+        </p>
         <div
           class="shadow-myShadow border-none rounded py-3 px-2 w-auto mt-5 text-left text-xs"
           @click="showMeaning"
@@ -30,7 +32,9 @@
             <p>{{ shuffledWord.japanese2 }}</p>
           </div>
 
-          <div v-else class="text-center">TAP AND CHECK<br>THE VOCABULARY</div>
+          <div v-else class="text-center">
+            TAP AND CHECK<br />THE VOCABULARY
+          </div>
         </div>
         <div
           class="shadow-myShadow border-none rounded py-3 px-2 w-auto mt-8 text-left text-xs"
@@ -40,8 +44,25 @@
             <p class="text-sm mb-2">{{ shuffledWord.english_sentence }}</p>
             <p>{{ shuffledWord.japanese_sentence }}</p>
           </div>
-          <div v-else class="text-center">TAP AND CHECK<br>THE EXAMPLE SENTENCE</div>
+          <div v-else class="text-center">
+            TAP AND CHECK<br />THE EXAMPLE SENTENCE
+          </div>
         </div>
+      </div>
+      <!-- memorisedステータスに応じたマルまたはバツを表示 -->
+      <div class="text-center mt-10">
+        <font-awesome-icon
+          icon="check"
+          class="fa-xl mx-8"
+          :style="checkIconStyle"
+          @click="setMemorisedStatus(1)"
+        />
+        <font-awesome-icon
+          icon="times"
+          class="fa-xl mx-8"
+          :style="timesIconStyle"
+          @click="setMemorisedStatus(2)"
+        />
       </div>
     </div>
 
@@ -56,7 +77,7 @@ export default {
   components: {
     Link,
   },
-  props: ["words"],
+  props: ["words", "memorisedStatuses"],
   data() {
     return {
       shuffledWords: [],
@@ -70,6 +91,30 @@ export default {
     shuffledWord() {
       return this.shuffledWords[this.currentIndex];
     },
+    currentMemorisedStatus() {
+      if (this.shuffledWord && this.memorisedStatuses[this.shuffledWord.id]) {
+        return this.memorisedStatuses[this.shuffledWord.id];
+      }
+      return null;
+    },
+
+    checkIconStyle() {
+      if (this.currentMemorisedStatus === 1) {
+        return { color: 'rgb(0, 194, 0)' };
+      }
+      return {
+        color: 'rgb(235, 236, 235)',
+      };
+    },
+    timesIconStyle() {
+      if (this.currentMemorisedStatus === 2) {
+        return { color: 'red' };
+      }
+      return {
+        color: 'rgb(235, 236, 235)',
+      };
+    },
+
   },
 
   created() {
@@ -81,7 +126,6 @@ export default {
       let currentIndex = array.length,
         randomIndex;
 
-      // シャッフルアルゴリズム (Fisher-Yates)
       while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
@@ -99,8 +143,6 @@ export default {
       if (this.currentIndex < this.shuffledWords.length - 1) {
         this.currentIndex++;
       } else {
-        // 最後の単語に到達した場合、単語の一覧画面にリダイレクトします。
-        // '/words' は一覧画面のルートを示しています。適切なルートに変更してください。
         Inertia.visit("/dashboard");
       }
     },
@@ -112,6 +154,22 @@ export default {
     showSentence() {
       this.showSentences = !this.showSentences;
     },
+
+    setMemorisedStatus(status) {
+      const wordId = this.shuffledWord.id;
+      axios.post('/update-memorised-status', {
+          wordId: wordId,
+          status: status
+      })
+      .then(response => {
+        if (this.shuffledWord) {
+          this.memorisedStatuses[wordId] = status;
+        }
+      })
+      .catch(error => {
+          console.error("Error updating memorised status:", error);
+      });
+    }
   },
 };
 </script>

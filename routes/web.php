@@ -44,7 +44,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/word/index', [WordController::class, 'index'])->name('word.index');
     Route::get('/word/shuffle', [WordController::class, 'shuffle'])->name('word.shuffle');
-    
+
+    Route::post('/update-memorised-status', [WordController::class, 'updateMemorisedStatus']);
 });
 
 require __DIR__.'/auth.php';

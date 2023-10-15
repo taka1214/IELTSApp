@@ -7,7 +7,6 @@
       <ShowWord :word="word" />
     </div>
 
-    <!-- モーダルの追加 -->
     <ModalShowDetail v-if="showModal" :word="selectedWord" :close="closeModal" />
   </div>
 </template>

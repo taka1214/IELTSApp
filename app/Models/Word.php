@@ -18,4 +18,11 @@ class Word extends Model
         'japanese_sentence',
         'voice_script',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_word')
+            ->withPivot('memorised')
+            ->withTimestamps();
+    }
 }

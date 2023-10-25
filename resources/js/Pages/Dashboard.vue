@@ -44,7 +44,7 @@ import WordsDisplay from "./WordsDisplay.vue";
     </div>
     <div class="w-full">
       <WordsDisplay :level="selectedLevel" />
-      <router-view></router-view>
+      <!-- <router-view></router-view> -->
     </div>
   </div>
 </template>

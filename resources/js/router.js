@@ -1,23 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import WordDisplay from './Pages/WordsDisplay.vue'
-import ShowWord from './Pages/ShowWord.vue'
+import Dashboard from './Pages/Dashboard.vue';
 
 const routes = [
   {
-    path: '/',
-    name: 'word-display',
-    component: WordDisplay
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
   },
-  {
-    path: '/word/:id',
-    name: 'ShowWord',
-    component: ShowWord,
-  },
-  // {
-  //   path: '/word/test',
-  //   name: 'ShowWord',
-  //   component: ShowWord,
-  // }
 ]
 
 

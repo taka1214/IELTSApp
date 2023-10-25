@@ -1,19 +1,18 @@
 <template>
-  <div>
-    <div v-for="word in words" :key="word.id" 
-         class="shadow-myShadow rounded-sm px-1 py-2 my-3"
-         @click="showDetail(word)"
-    >
-      <ShowWord :word="word" />
-    </div>
-
-    <ModalShowDetail v-if="showModal" :word="selectedWord" :close="closeModal" />
+  <div
+    v-for="word in words"
+    :key="word.id"
+    class="shadow-myShadow rounded-sm px-1 py-2 my-3"
+    @click="showDetail(word)"
+  >
+    <ShowWord :word="word" />
   </div>
+  <ModalShowDetail v-if="showModal" :word="selectedWord" :close="closeModal" />
 </template>
 
 <script>
 import axios from "axios";
-import ShowWord from "./ShowWord.vue"; 
+import ShowWord from "./ShowWord.vue";
 import ModalShowDetail from "./ModalShowDetail.vue";
 
 export default {
@@ -28,7 +27,7 @@ export default {
     return {
       words: [],
       selectedWord: {},
-      showModal: false // モーダルの表示/非表示を制御するための変数
+      showModal: false,
     };
   },
   mounted() {
@@ -54,12 +53,19 @@ export default {
         });
     },
     showDetail(word) {
-      this.selectedWord = word;
-      this.showModal = true; // モーダルを表示
+      axios
+        .get(`/word/detail/${word.id}`)
+        .then((response) => {
+          this.selectedWord = response.data;
+          this.showModal = true;
+        })
+        .catch((error) => {
+          console.error("There was an issue fetching the word details:", error);
+        });
     },
     closeModal() {
-      this.showModal = false; // モーダルを非表示
-    }
+      this.showModal = false;
+    },
   },
 };
 </script>

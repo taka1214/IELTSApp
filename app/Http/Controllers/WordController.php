@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Word;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 
 class WordController extends Controller
 {
@@ -41,7 +41,7 @@ class WordController extends Controller
 
         return Inertia::render('ShuffleWords', [
             'words' => $words,
-            'memorisedStatuses' => $memorisedStatuses 
+            'memorisedStatuses' => $memorisedStatuses
         ]);
     }
 
@@ -49,7 +49,7 @@ class WordController extends Controller
     {
         $wordId = $request->input('wordId');
         $status = $request->input('status');
-        
+
         $user = Auth::user();
         $word = $user->words->find($wordId);
 
@@ -64,4 +64,26 @@ class WordController extends Controller
         return response()->json(['message' => 'Updated successfully']);
     }
 
+    public function wordDetail($id)
+    {
+        $word = Word::find($id);
+
+        if (!$word) {
+            return response()->json(['message' => 'Word not found'], 404);
+        }
+
+        $user = Auth::user();
+        $memorisedStatus = $user->words()->where('word_id', $id)->first()->pivot->memorised;
+
+        return response()->json([
+            'id' => $word->id,
+            'english' => $word->english,
+            'phonetic_symbol' => $word->phonetic_symbol,
+            'english_sentence' => $word->english_sentence,
+            'japanese' => $word->japanese,
+            'japanese2' => $word->japanese2,
+            'japanese_sentence' => $word->japanese_sentence,
+            'memorised' => $memorisedStatus,
+        ]);
+    }
 }

@@ -54,7 +54,7 @@ const submit = () => {
             <div class="mt-4">
                 <div class="flex justify-between">
                     <InputLabel for="email" value="EMAIL" />
-                    <p class="text-xs text-gray-400">※実際のメールアドレスじゃなくてもいいですが、<br/>ログイン前のパスワード変更は出来なくなります</p>
+                    <p class="text-xs text-gray-400 w-11/12 text-right">※実際のメールアドレスじゃなくてもいいですが、ログイン前のパスワード変更メールが送れなくなります</p>
                 </div>
 
                 <TextInput
@@ -106,7 +106,7 @@ const submit = () => {
                 <p class="text-sm text-center py-4">※下記の登録情報はこの単語のサイトを無料で公開するため、
                     どんな人が使っているか気になったので
                     アンケートとしてご登録いただければ幸いです🙏<br>
-                    任意の登録なのでここはスキップして登録でもOKです
+                    任意の登録のためここはスキップして登録でもOKです
                 </p>
                 <div class="py-2">
                     <input type="radio" name="building" value="A" v-model="form.building"> A棟&nbsp; &nbsp;

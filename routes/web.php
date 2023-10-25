@@ -18,19 +18,29 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+// Route::get('/', function () {
+//     if (Auth::check()) {
+//         return redirect()->route('index');
+//     } else {
+//         return redirect()->route('login');
+//     }
+
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
+
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect()->route('index');
-    } else {
-        return redirect()->route('login');
+        // ユーザーがログインしている場合は、ダッシュボードにリダイレクトします。
+        return redirect()->route('dashboard');
     }
 
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    // ログインしていない場合は、ログインページにリダイレクトします。
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
@@ -44,8 +54,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/word/index', [WordController::class, 'index'])->name('word.index');
     Route::get('/word/shuffle', [WordController::class, 'shuffle'])->name('word.shuffle');
+    Route::get('/word/getTarget', [WordController::class, 'getTarget'])->name('word.getTarget');
 
     Route::post('/update-memorised-status', [WordController::class, 'updateMemorisedStatus']);
+    Route::get('/word/detail/{id}', [WordController::class, 'wordDetail']);
 });
 
 require __DIR__.'/auth.php';

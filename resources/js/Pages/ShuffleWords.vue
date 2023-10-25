@@ -65,7 +65,6 @@
         />
       </div>
     </div>
-
     <button @click="showNextWord" class="underline my-10 text-sm">NEXT</button>
   </div>
 </template>
@@ -73,6 +72,7 @@
 <script>
 import { Link } from "@inertiajs/vue3";
 import { Inertia } from "@inertiajs/inertia";
+
 export default {
   components: {
     Link,
@@ -114,7 +114,6 @@ export default {
         color: 'rgb(235, 236, 235)',
       };
     },
-
   },
 
   created() {
